@@ -1,11 +1,20 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { articlesContent } from "../ArticlesContent";
 
 
 export const ArticlePage = () => {
 
     const {name} = useParams();
-    console.log({name});
+    const article = articlesContent.find(f=>f.name === name);
+
+    if (!article) {
+        return <Navigate to="/not-found" replace />;
+    }
+
     return(
-        <h1>This is article page!! {name}</h1>
-    );
+        <>
+            <h2>{article?.title}</h2>
+            {article?.content.map(p=> <p key={p}> {p} </p> )}
+        </>
+    )
 }

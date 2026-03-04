@@ -6,12 +6,14 @@ import { HomePage } from "./pages/HomePage";
 
 import {createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
 import { Layout } from "./shared/layout";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 export default function App() {
   
   const routes: RouteObject[] = [
     {path:"/",
       element: <Layout/>,
+      errorElement: <NotFoundPage/>,
       children:[{
         path: "/",
         element: <HomePage/>
@@ -26,7 +28,8 @@ export default function App() {
         },{
           path: "/article/:name",
           element: <ArticlePage/>
-        }]
+        }
+      ]
     }    
 ]
 
