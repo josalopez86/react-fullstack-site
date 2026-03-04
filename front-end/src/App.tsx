@@ -1,10 +1,10 @@
+import {createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
+
 import "./App.css";
 import { AboutPage } from "./pages/AboutPage";
 import { ArticlePage } from "./pages/ArticlePage";
 import { ArticleListPage } from "./pages/ArticlesListPage";
 import { HomePage } from "./pages/HomePage";
-
-import {createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
 import { Layout } from "./shared/layout";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
