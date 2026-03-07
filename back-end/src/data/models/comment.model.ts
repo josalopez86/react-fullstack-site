@@ -12,10 +12,11 @@ export const CommentSchema = new mongoose.Schema({
 
     text: {
         type: String,
-        required: [true, "comment text is required."],   
+        required: [true, "comment text is required."],
     },
     postedBy:{
         type: String,
+        required: [true, "posted by is required."],
     },
     postedByAt:{
         type: Date,

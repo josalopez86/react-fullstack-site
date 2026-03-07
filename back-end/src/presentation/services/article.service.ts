@@ -2,29 +2,27 @@ import { ArticleModel } from "../../data/models/article.model";
 import { ArticleCommentInterface, ArticleInterface } from "../../domain";
 
 export class ArticleService{
-
-     private articlesInfo: ArticleInterface[] = [];
-    //     {
-    //         name: "learn-node",
-    //         content: "",
-    //         upvotes: 0,
-    //         comments: [],
-    //     },
-    //     {
-    //         name: "learn-react",
-    //         content: "",
-    //         upvotes: 0,
-    //         comments: [],
-    //     },
-    //     {
-    //         name: "mongpdb",
-    //         content: "",
-    //         upvotes: 0,
-    //         comments: []
-    //     }];
     
-    getArticles = ():ArticleInterface[] => {
-        return this.articlesInfo;
+    getArticles = async ():Promise< ArticleInterface[] | undefined> => {
+        const articles = await ArticleModel.find();
+
+        const ArticlesEntity = articles.map((article): ArticleInterface => {
+            return{
+                 id: article.id,
+                 name: article.name,
+                 content: article.content ?? "",
+                 upvotes: article.upvotes,
+                 comments: article.comments.map((comment): ArticleCommentInterface => {
+                                                return {
+                                                    text: comment.text,
+                                                    postedBy: comment.postedBy,
+                                                    postedByAt: comment.postedByAt,
+
+                                                }})
+            }
+        });
+
+        return ArticlesEntity;
     }
 
     addArticle = async (name:string, content: string): Promise<ArticleInterface> => {
@@ -34,6 +32,8 @@ export class ArticleService{
             content: content,
             upvotes: 0            
         });
+
+        article.save();
         
         return {
                 id: article.id,
@@ -43,27 +43,41 @@ export class ArticleService{
             };
     }
 
-    getArticleByName = (name:string): ArticleInterface| undefined => {
+    getArticleByName = async (name:string): Promise<ArticleInterface | undefined> => {
         
-        const article = this.articlesInfo.find(f=>{return f.name === name});
-        return article;
+        const article = await ArticleModel.findOne({name: name});
+        if(!article){
+            return undefined;
+        }
+
+        return {
+                    id: article.id,
+                    name: article.name,
+                    content: article.content ?? "",
+                    upvotes: article.upvotes,
+                    comments: article.comments
+                };
     }
 
-    upvote = (name:string): boolean =>{
-        const article = this.articlesInfo.find(f=>f.name === name);
+    upvote = async (name:string): Promise<boolean> =>{
+        const article = await ArticleModel.findOneAndUpdate(
+            {name: name}, 
+            {$inc: {upvotes: 1}}
+        );
 
         if(!article)
         {
             return false;
         }
 
-        article!.upvotes += 1;
+        //article!.upvotes += 1;
+        article.save();
 
         return true;
     }
 
-    addComment = (name:string, text: string, postedBy: string): boolean =>{
-        const article = this.articlesInfo.find(f=>f.name === name);
+    addComment = async (name:string, text: string, postedBy: string): Promise<boolean> =>{
+        const article = await ArticleModel.findOne({name: name});
 
         if(!article)
         {
@@ -72,10 +86,12 @@ export class ArticleService{
 
         const comment: ArticleCommentInterface = {
             postedBy: postedBy,
-            text: text
+            text: text,
+            postedByAt: new Date()
         };
 
-        article!.comments!.unshift(comment);
+        article.comments.push(comment);
+        article.save();
 
         return true;
     }

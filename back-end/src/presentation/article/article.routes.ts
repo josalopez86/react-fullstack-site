@@ -11,6 +11,7 @@ export class ArticleRoutes {
     const controller = new ArticleController(service);
     
     router.get('/', controller.getArticles);
+    router.get('/:name', controller.getArticleByName);
 
     router.post('/', controller.addArticle);
 
