@@ -3,3 +3,9 @@ export interface ArticleInterface{
     title: string,
     content: string[]
 }
+
+export interface ArticleCommentInterface{
+    text: string,
+    postedBy: string,
+    postedByAt: Date
+}

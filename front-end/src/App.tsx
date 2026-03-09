@@ -2,7 +2,7 @@ import {createBrowserRouter, RouterProvider, type RouteObject } from "react-rout
 
 import "./App.css";
 import { AboutPage } from "./pages/AboutPage";
-import { ArticlePage } from "./pages/ArticlePage";
+import { articleLoader, ArticlePage } from "./pages/ArticlePage";
 import { ArticleListPage } from "./pages/ArticlesListPage";
 import { HomePage } from "./pages/HomePage";
 import { Layout } from "./shared/layout";
@@ -27,7 +27,8 @@ export default function App() {
           element: <ArticleListPage/>
         },{
           path: "/article/:name",
-          element: <ArticlePage/>
+          element: <ArticlePage/>,
+          loader: articleLoader
         }
       ]
     }    
