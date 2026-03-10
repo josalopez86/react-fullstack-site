@@ -35,7 +35,7 @@ export class ArticleController{
         res.json(article);
     }
 
-    upvote = (req: Request, res: Response) => {
+    upvote = async (req: Request, res: Response) => {
         const name: string = req.params.name as string;
 
         const article = this.articleService.getArticleByName(name);        
@@ -43,14 +43,16 @@ export class ArticleController{
             return res.status(404).json("Article not found.");            
         }
 
-        if(!this.articleService.upvote(name))
+        const upvotes = await this.articleService.upvote(name);
+
+        if(upvotes === 0)
         {
             return res.status(400).json("Article not found.");
         }
-        res.json("Article upvoted succesfully.");
+        res.json(upvotes);
     }
 
-    addComment = (req: Request, res: Response) => {
+    addComment = async (req: Request, res: Response) => {
         const name: string = req.params.name as string;
         const {text, postedBy} = req.body;      
 
@@ -67,13 +69,24 @@ export class ArticleController{
             return res.status(404).json("postedBy is required.");            
         }
 
+        const newComment = await this.articleService.addComment(name, text, postedBy);
 
-
-        if(!this.articleService.addComment(name, text, postedBy))
+        if(!newComment)
         {
             return res.status(400).json("Article not found.");
         }
-        return res.json("Article upvoted succesfully.");
+        return res.json(newComment);
+    }
+
+    deleteComment = async (req: Request, res: Response) => {
+
+        const name: string = req.params.name as string;
+        const id: string = req.params.id as string;
+
+        if(!await this.articleService.deleteComment(name, id)){
+            return res.status(400).json("Article not found.");
+        }
+        res.json(true);
     }
 
 }

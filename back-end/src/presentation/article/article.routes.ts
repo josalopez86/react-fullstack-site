@@ -18,6 +18,7 @@ export class ArticleRoutes {
     router.post('/:name/upvote', controller.upvote);
 
     router.post('/:name/comments', controller.addComment);
+    router.delete('/:name/comments/:id', controller.deleteComment);
 
     return router;
   }

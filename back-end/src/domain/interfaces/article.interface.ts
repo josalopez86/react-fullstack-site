@@ -8,6 +8,7 @@ export interface ArticleInterface{
 }
 
 export interface ArticleCommentInterface{
+    id: string,
     text: string,
     postedBy: string,
     postedByAt: Date
