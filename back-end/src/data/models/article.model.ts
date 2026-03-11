@@ -23,6 +23,10 @@ const ArticleSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    upvoteIds:{
+        type: [String],
+        default: []
+    },
     comments:{
         type: [CommentSchema],
         default: []

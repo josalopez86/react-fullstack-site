@@ -64,13 +64,23 @@ export class ArticleService{
                             postedByAt: comment.postedByAt
                         }
                     })
-                };
+                }
     }
 
-    upvote = async (name:string): Promise<number> =>{
+    upvote = async (name:string, userId: string): Promise<number> =>{
+
+        const voteExist = await ArticleModel.findOne({name: name, upvoteIds: userId})
+        
+        console.log({voteExist});
+
+        if(voteExist){
+            return 0;
+        }
+
         const article = await ArticleModel.findOneAndUpdate(
             {name: name}, 
-            {$inc: {upvotes: 1}}
+            {$inc: {upvotes: 1},
+            $addToSet:{upvotesIds: userId}}
         );
 
         if(!article)

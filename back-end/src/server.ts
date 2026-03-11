@@ -1,7 +1,11 @@
 import express from "express";
-import { ArticleRoutes } from "./presentation/article/article.routes";
-import { MongoDatabase } from "./data/mongo-database";
 import dotenv from "dotenv";
+import admin from "firebase-admin";
+import fs from 'fs';
+import { MongoDatabase } from "./data/mongo-database";
+import { ArticleRoutes } from "./presentation/article/article.routes";
+
+
 
 
 
@@ -15,6 +19,12 @@ async function main() {
   {
     dbName: process.env.MONGO_DB_NAME ?? "",
     mongoUrl: process.env.MONGO_URL ?? ""
+  });
+
+  const firebaseCreds = JSON.parse(fs.readFileSync("./firebase-config.json", "utf8"));
+
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseCreds)
   });
 
   const app = express();
