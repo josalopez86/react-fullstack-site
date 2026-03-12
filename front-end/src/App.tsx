@@ -1,12 +1,15 @@
 import {createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
 
 import "./App.css";
-import { AboutPage } from "./pages/AboutPage";
-import { articleLoader, ArticlePage } from "./pages/ArticlePage";
-import { ArticleListPage } from "./pages/ArticlesListPage";
-import { HomePage } from "./pages/HomePage";
-import { Layout } from "./shared/layout";
-import { NotFoundPage } from "./pages/NotFoundPage";
+import { NotFoundPage } from "./presentation/pages/NotFoundPage";
+import { Layout } from "./presentation/pages/shared/layout";
+import { HomePage } from "./presentation/pages/HomePage";
+import { AboutPage } from "./presentation/pages/AboutPage";
+import { LoginPage } from "./presentation/pages/Auth/LoginPage";
+import { CreateAccountPage } from "./presentation/pages/Auth/CreateAccountPage";
+import { ArticleListPage } from "./presentation/pages/Article/ArticlesListPage";
+import { articleLoader, ArticlePage } from "./presentation/pages/Article/ArticlePage";
+
 
 export default function App() {
   
@@ -21,6 +24,14 @@ export default function App() {
         {
           path: "/about",
           element: <AboutPage/>
+        },
+        {
+          path: "/login",
+          element: <LoginPage/>
+        },
+        {
+          path: "/create-account",
+          element: <CreateAccountPage/>
         },
         {
           path: "/articles",

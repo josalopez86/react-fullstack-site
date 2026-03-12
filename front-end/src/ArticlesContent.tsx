@@ -1,4 +1,4 @@
-import type { ArticleInterface } from "./entities/article.interface";
+import type { ArticleInterface } from "./domain/entities/article.interface";
 
 export const articlesContent: ArticleInterface[] = [
     {

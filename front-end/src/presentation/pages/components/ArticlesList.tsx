@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { ArticleInterface } from "../../entities/article.interface";
+import type { ArticleInterface } from "../../../domain/entities/article.interface";
 
 interface ArticleListProps {
     articles: ArticleInterface[];

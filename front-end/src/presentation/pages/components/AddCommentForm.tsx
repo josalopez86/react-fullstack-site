@@ -8,6 +8,16 @@ export const AddCommentForm = ({onAddComment}: addComentParams) => {
   const [nameText, setNameText] = useState("");
   const [commentText, setCommentText] = useState("");
 
+  const onHandleClick = ()=>{
+    if(!nameText || !commentText){
+      alert("Name and comments are required!");
+      return;
+    }
+    onAddComment(nameText, commentText);
+    setCommentText("");
+    setNameText("");
+  }
+
   return (
     <div>
       <h3>Add Comment</h3>
@@ -17,7 +27,7 @@ export const AddCommentForm = ({onAddComment}: addComentParams) => {
       <label>
         Comment: <input type="text" value={commentText} onChange={e=>{setCommentText(e.target.value)}}/>
       </label>
-    <button onClick={ () => {onAddComment(nameText, commentText)}}>Send</button>
+    <button onClick={ () => onHandleClick()}>Send</button>
     </div>
   )
 }

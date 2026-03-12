@@ -113,3 +113,17 @@ a:hover {
 div .comments{
   background-color: #555;
 }
+
+input{
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.button-div{
+   text-align: right;
+   padding-right: 10px;
+   padding-bottom: 10px;
+}
