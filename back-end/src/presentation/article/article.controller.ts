@@ -37,7 +37,7 @@ export class ArticleController{
 
     upvote = async (req: Request, res: Response) => {
         const name: string = req.params.name as string;
-        const {uid} = req.body.user;
+        const {uid} = (req as any).user;
 
         const article = this.articleService.getArticleByName(name);        
         if(!article){
@@ -48,7 +48,7 @@ export class ArticleController{
 
         if(upvotes === 0)
         {
-            return res.status(400).json("Article not found.");
+            return res.status(400).json("Couldn't upvote.");
         }
         res.json(upvotes);
     }

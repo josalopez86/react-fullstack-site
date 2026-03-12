@@ -69,27 +69,25 @@ export class ArticleService{
 
     upvote = async (name:string, userId: string): Promise<number> =>{
 
-        const voteExist = await ArticleModel.findOne({name: name, upvoteIds: userId})
+        const voteExist = await ArticleModel.findOne({name: name, upvoteIds: userId});
         
-        console.log({voteExist});
-
         if(voteExist){
             return 0;
         }
-
+        
         const article = await ArticleModel.findOneAndUpdate(
-            {name: name}, 
+            {name: name, upvoteIds: { $ne: userId }},
             {$inc: {upvotes: 1},
-            $addToSet:{upvotesIds: userId}}
+            $addToSet:{upvoteIds: userId}},
+            { new: true }
         );
 
         if(!article)
         {
             return 0;
         }
-        article.save();
 
-        return article.upvotes+1;
+        return article.upvotes + 1;
     }
 
     addComment = async (name:string, text: string, postedBy: string): Promise<ArticleCommentInterface | null> =>{

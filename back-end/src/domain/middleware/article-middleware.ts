@@ -15,9 +15,7 @@ export class ArticleMiddleware{
         {
             return res.status(401).json("Token is invalid");
         }
-        req.body.user = user;
-        
-        console.log(user);
+        (req as any).user = user;        
         next();
     }
   
