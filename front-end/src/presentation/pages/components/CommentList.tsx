@@ -1,4 +1,5 @@
 import type { ArticleCommentInterface } from "../../../domain/entities/article.interface";
+import { useUser } from "../../../domain/useUser";
 
 
 interface ArticleCommentListProps {
@@ -7,6 +8,9 @@ interface ArticleCommentListProps {
 }
 
 export const CommentList = ({comments, onDeleteComment}: ArticleCommentListProps) => {
+
+    const { user } = useUser();
+
     return(
         <>
             <h3>Comments</h3>            
@@ -21,9 +25,9 @@ export const CommentList = ({comments, onDeleteComment}: ArticleCommentListProps
                         
                         <p key={`comment-text${index}`}>{comment.text}</p>
                         <hr  key={`hr${index}`}/>
-                        <div key={`div${index}`} className="button-div">
+                        { (user && user.uid == comment.userId) && (<div key={`div${index}`} className="button-div">
                             <button onClick={ () => {onDeleteComment(comment.id)}}>Remove</button>
-                        </div>
+                        </div>)}
                     </div>                    
                 ))
                 : <h3 key="no-comments">No comments!!</h3>}

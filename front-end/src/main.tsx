@@ -1,8 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { initializeApp } from 'firebase/app';
 import './index.css'
 import App from './App.tsx'
-import { initializeApp } from 'firebase/app';
+
 
 // Import the functions you need from the SDKs you need
 //import { initializeApp } from "firebase/app";

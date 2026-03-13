@@ -11,6 +11,7 @@ export const ArticlePage = () => {
     const {content, name, upvotes, comments } = useLoaderData() as ArticleLoaderData;
     const [upvotesInitial, setupvotesInitial] = useState(upvotes);
     const [commentsInitial, setCommentsInitial] = useState(comments ?? []);
+    console.log(comments);
     const { user } = useUser();
 
     const getHeaders = async() =>{
@@ -56,6 +57,8 @@ export const ArticlePage = () => {
                 setCommentsInitial(newComments);
                 alert("Comment deleted!!");
             }
+        }).catch((error)=>{
+            alert(error.response.data);
         });
     }
 

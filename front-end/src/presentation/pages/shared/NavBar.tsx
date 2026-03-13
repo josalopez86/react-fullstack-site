@@ -39,8 +39,8 @@ export const NavBar = () =>{
                             {user && (<li><small>{user.email}</small></li>)}
                             <li>
                             { isLoggedIn ?
-                                <button onClick={onHandleLogOut}>Log out</button>
-                                : <button onClick={onHandleSingIn}>SingIn</button>
+                                <button onClick={onHandleLogOut}>Log Out</button>
+                                : <button onClick={onHandleSingIn}>Sign In</button>
 }
                             </li>
                             </>                            
