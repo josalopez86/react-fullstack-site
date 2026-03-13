@@ -18,6 +18,10 @@ export const CommentSchema = new mongoose.Schema({
         type: String,
         required: [true, "posted by is required."],
     },
+    userId:{
+        type: String,
+        required: [true, "user id is required."],
+    },
     postedByAt:{
         type: Date,
         default: new Date        

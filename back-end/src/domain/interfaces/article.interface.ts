@@ -11,5 +11,6 @@ export interface ArticleCommentInterface{
     id: string,
     text: string,
     postedBy: string,
+    userId: string,
     postedByAt: Date
 }

@@ -6,11 +6,12 @@
     // File Layout
     "rootDir": "src",
     "outDir": "dist/",
-
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "NodeNext",
+    "target": "ES2022",
     //"types": [],
     // For nodejs:
     // "lib": ["esnext"],

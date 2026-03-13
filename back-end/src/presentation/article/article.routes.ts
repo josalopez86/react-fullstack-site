@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { ArticleController } from "./article.controller";
-import { ArticleService } from "../services/article.service";
-import { ArticleMiddleware } from "../../domain/middleware/article-middleware";
+import { ArticleController } from "./article.controller.js";
+import { ArticleService } from "../services/article.service.js";
+import { ArticleMiddleware } from "../../domain/middleware/article-middleware.js";
 
 export class ArticleRoutes {
     
@@ -14,7 +14,7 @@ export class ArticleRoutes {
     router.get('/', controller.getArticles);
     router.get('/:name', controller.getArticleByName);
 
-    router.use(ArticleMiddleware.validateUser);    
+    //router.use(ArticleMiddleware.validateUser);
 
     router.post('/', controller.addArticle);
 

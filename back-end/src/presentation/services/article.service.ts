@@ -1,5 +1,6 @@
-import { ArticleModel } from "../../data/models/article.model";
-import { ArticleCommentInterface, ArticleInterface } from "../../domain";
+import { ArticleModel } from "../../data/models/article.model.js";
+import { ArticleCommentInterface, ArticleInterface } from "../../domain/interfaces/article.interface.js";
+
 
 export class ArticleService{
     
@@ -17,7 +18,8 @@ export class ArticleService{
                                                     text: comment.text,
                                                     postedBy: comment.postedBy,
                                                     postedByAt: comment.postedByAt,
-                                                    id: comment._id.toString()
+                                                    id: comment._id.toString(),
+                                                    userId: comment.userId
 
                                                 }})
             }
@@ -61,7 +63,8 @@ export class ArticleService{
                             id: comment._id.toString(),
                             text: comment.text,
                             postedBy: comment.postedBy,
-                            postedByAt: comment.postedByAt
+                            postedByAt: comment.postedByAt,
+                            userId: comment.userId
                         }
                     })
                 }
@@ -90,7 +93,7 @@ export class ArticleService{
         return article.upvotes + 1;
     }
 
-    addComment = async (name:string, text: string, postedBy: string): Promise<ArticleCommentInterface | null> =>{
+    addComment = async (name:string, text: string, postedBy: string, userId: string): Promise<ArticleCommentInterface | null> =>{
         const article = await ArticleModel.findOne({name: name});
 
         if(!article)
@@ -102,6 +105,7 @@ export class ArticleService{
             postedBy: postedBy,
             text: text,
             postedByAt: new Date(),
+            userId: userId
 
         };
 

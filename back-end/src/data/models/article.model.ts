@@ -1,6 +1,6 @@
 
 import mongoose, { Types } from "mongoose";
-import { CommentSchema } from "./comment.model";
+import { CommentSchema } from "./comment.model.js";
 
 export interface Article {
   _id: Types.ObjectId;
